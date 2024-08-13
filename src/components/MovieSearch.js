@@ -44,15 +44,15 @@ const MovieSearch = () => {
       </form>
       {error && <p className="error">{error}</p>}
       <ul className="movie-results">
-        {movies.length > 0 ? (
+        {movies.length === 0 && !error ? (
+          <li>No movies found.</li>
+        ) : (
           movies.map((movie) => (
             <li key={movie.imdbID} className="movie-card">
               <h3>{movie.Title} ({movie.Year})</h3>
               <img src={movie.Poster} alt={movie.Title} />
             </li>
           ))
-        ) : (
-          <li>No movies found.</li>
         )}
       </ul>
     </div>
