@@ -9,7 +9,9 @@ const MovieSearch = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
     if (!query) {
       return;
     }
@@ -31,26 +33,28 @@ const MovieSearch = () => {
 
   return (
     <div className="movie-search">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for a movie..."
-      />
-      <button onClick={handleSearch}>Search</button>
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for a movie..."
+        />
+        <button type="submit">Search</button>
+      </form>
       {error && <p className="error">{error}</p>}
-      <div className="movie-results">
+      <ul className="movie-results">
         {movies.length > 0 ? (
           movies.map((movie) => (
-            <div key={movie.imdbID} className="movie-card">
+            <li key={movie.imdbID} className="movie-card">
               <h3>{movie.Title} ({movie.Year})</h3>
               <img src={movie.Poster} alt={movie.Title} />
-            </div>
+            </li>
           ))
         ) : (
-          <p>No movies found.</p>
+          <li>No movies found.</li>
         )}
-      </div>
+      </ul>
     </div>
   );
 };
