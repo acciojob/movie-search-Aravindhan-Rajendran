@@ -40,12 +40,16 @@ const MovieSearch = () => {
       <button onClick={handleSearch}>Search</button>
       {error && <p className="error">{error}</p>}
       <div className="movie-results">
-        {movies.map((movie) => (
-          <div key={movie.imdbID} className="movie-card">
-            <h3>{movie.Title} ({movie.Year})</h3>
-            <img src={movie.Poster} alt={movie.Title} />
-          </div>
-        ))}
+        {movies.length > 0 ? (
+          movies.map((movie) => (
+            <div key={movie.imdbID} className="movie-card">
+              <h3>{movie.Title} ({movie.Year})</h3>
+              <img src={movie.Poster} alt={movie.Title} />
+            </div>
+          ))
+        ) : (
+          <p>No movies found.</p>
+        )}
       </div>
     </div>
   );
